@@ -1,0 +1,6 @@
+class,train_images (figshare_source),test_images (figshare_source),test_with_twin_ncc095_or_patient,test_with_neartwin_ncc098,test_without_twin
+Glioma,"1,400 (1,400)",400 (324),326,119,74
+Meningioma,"1,400 (1,181)",400 (186),292,271,108
+No tumour,"1,400 (0)",400 (0),400,398,0
+Pituitary,"1,400 (1,344)",400 (400),398,295,2
+Total,"5,600 (3,925)","1,600 (910)","1,416","1,083",184
