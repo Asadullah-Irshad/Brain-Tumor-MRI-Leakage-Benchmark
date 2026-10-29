@@ -1,0 +1,2 @@
+test_set,images,accuracy_pct [95% CI seed 0],balanced_accuracy_pct,macro_f1,macro_auc,ece
+official test partition,"1,600",95.1 ± 0.7 [94.9–96.8],95.1 ± 0.7,0.950 ± 0.008 [0.947–0.968],0.990 ± 0.002 [0.990–0.996],0.030 ± 0.003

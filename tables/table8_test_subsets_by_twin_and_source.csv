@@ -1,0 +1,7 @@
+subset,images,accuracy_pct,gliomas,glioma_recall_pct,gliomas_called_no_tumour_pct,gliomas_called_meningioma_pct
+All,1600,95.1 ± 0.7,400,82.3 ± 1.8,6.0 ± 0.8,11.4 ± 1.1
+With a training twin (NCC>=0.95 or same patient),1416,98.6 ± 0.5,326,95.9 ± 1.2,0.0 ± 0.0,4.0 ± 1.2
+Without a training twin (NCC>=0.95 or same patient),184,67.9 ± 2.7,74,22.5 ± 4.1,32.4 ± 4.1,44.1 ± 0.8
+"Without a near-duplicate (NCC>=0.98, no patient links)",517,86.5 ± 1.5,281,76.4 ± 2.0,8.5 ± 1.1,14.7 ± 1.1
+Gliomas from the figshare source,324,—,324,96.5 ± 1.2,0.0 ± 0.0,3.4 ± 1.2
+Gliomas from other sources,76,—,76,21.9 ± 4.0,31.6 ± 3.9,45.6 ± 0.8
