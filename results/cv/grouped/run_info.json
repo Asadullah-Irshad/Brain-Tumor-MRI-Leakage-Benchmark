@@ -1,0 +1,33 @@
+{
+  "config": {
+    "img_size": 224,
+    "batch_size": 32,
+    "head_epochs": 15,
+    "head_lr": 0.001,
+    "ft_epochs": 30,
+    "ft_lr": 5e-05,
+    "single_stage_lr": 0.0001,
+    "patience": 8,
+    "dropout": 0.2,
+    "val_fraction": 0.15,
+    "hflip_p": 0.5,
+    "rotation_deg": 10.0,
+    "crop_scale_min": 0.9,
+    "brightness": 0.1,
+    "contrast": 0.1,
+    "num_workers": 2,
+    "amp": true,
+    "pretrained": true
+  },
+  "env": {
+    "python": "3.13.15",
+    "platform": "Linux-6.18.55+-x86_64-with-glibc2.39",
+    "processor": "x86_64",
+    "cpu_count": 4,
+    "torch": "2.11.0+cu128",
+    "torchvision": "0.26.0+cu128",
+    "cuda": "12.8",
+    "gpu": "Tesla T4",
+    "cpu_model": "Intel(R) Xeon(R) CPU @ 2.00GHz"
+  }
+}
