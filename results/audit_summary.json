@@ -1,0 +1,90 @@
+{
+  "release_detected": "v2 (7,200 images)",
+  "train_per_class": {
+    "glioma": 1400,
+    "meningioma": 1400,
+    "notumor": 1400,
+    "pituitary": 1400
+  },
+  "test_per_class": {
+    "glioma": 400,
+    "meningioma": 400,
+    "notumor": 400,
+    "pituitary": 400
+  },
+  "n_train": 5600,
+  "n_test": 1600,
+  "n_total": 7200,
+  "size_summary": {
+    "train": {
+      "glioma": {
+        "median_w": 512.0,
+        "median_h": 512.0,
+        "pct_grayscale_mode": 83.78571428571429,
+        "formats": {
+          "JPEG": 1400
+        }
+      },
+      "meningioma": {
+        "median_w": 512.0,
+        "median_h": 512.0,
+        "pct_grayscale_mode": 39.64285714285714,
+        "formats": {
+          "JPEG": 1400
+        }
+      },
+      "notumor": {
+        "median_w": 230.0,
+        "median_h": 244.0,
+        "pct_grayscale_mode": 1.6428571428571428,
+        "formats": {
+          "JPEG": 1396,
+          "PNG": 4
+        }
+      },
+      "pituitary": {
+        "median_w": 512.0,
+        "median_h": 512.0,
+        "pct_grayscale_mode": 43.357142857142854,
+        "formats": {
+          "JPEG": 1400
+        }
+      }
+    },
+    "test": {
+      "glioma": {
+        "median_w": 512.0,
+        "median_h": 512.0,
+        "pct_grayscale_mode": 56.49999999999999,
+        "formats": {
+          "JPEG": 400
+        }
+      },
+      "meningioma": {
+        "median_w": 512.0,
+        "median_h": 512.0,
+        "pct_grayscale_mode": 38.5,
+        "formats": {
+          "JPEG": 400
+        }
+      },
+      "notumor": {
+        "median_w": 227.0,
+        "median_h": 234.0,
+        "pct_grayscale_mode": 1.5,
+        "formats": {
+          "JPEG": 400
+        }
+      },
+      "pituitary": {
+        "median_w": 512.0,
+        "median_h": 512.0,
+        "pct_grayscale_mode": 80.75,
+        "formats": {
+          "JPEG": 400
+        }
+      }
+    }
+  },
+  "oversampling_or_copying_by_author": "none - images are used exactly as distributed"
+}

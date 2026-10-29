@@ -1,0 +1,9 @@
+cls,split,False,True
+glioma,test,76,324
+glioma,train,0,1400
+meningioma,test,214,186
+meningioma,train,219,1181
+notumor,test,400,0
+notumor,train,1400,0
+pituitary,test,0,400
+pituitary,train,56,1344

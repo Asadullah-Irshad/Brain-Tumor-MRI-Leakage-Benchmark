@@ -1,0 +1,64 @@
+{
+  "env": {
+    "python": "3.13.15",
+    "platform": "Linux-6.18.55+-x86_64-with-glibc2.39",
+    "processor": "x86_64",
+    "cpu_count": 4,
+    "torch": "2.11.0+cu128",
+    "torchvision": "0.26.0+cu128",
+    "cuda": "12.8",
+    "gpu": "Tesla T4",
+    "cpu_model": "Intel(R) Xeon(R) CPU @ 2.00GHz"
+  },
+  "torch_threads": 2,
+  "input": [
+    1,
+    3,
+    224,
+    224
+  ],
+  "precision": "fp32",
+  "device": "cpu",
+  "models": {
+    "efficientnet_b0": {
+      "params": 4012672,
+      "weights_mb": 16.323675,
+      "gflops": 0.769079744,
+      "pytorch_ms_median": 41.499177501464146,
+      "pytorch_ms_p95": 43.82610764932906,
+      "pytorch_batch32_ms_per_image": 49.56552971873407,
+      "onnxruntime_ms_median": null,
+      "onnxruntime_error": "No module named 'onnxruntime'"
+    },
+    "resnet18": {
+      "params": 11178564,
+      "weights_mb": 44.784459,
+      "gflops": 3.627126784,
+      "pytorch_ms_median": 37.159006498768576,
+      "pytorch_ms_p95": 39.22236479938874,
+      "pytorch_batch32_ms_per_image": 35.01587854691479,
+      "onnxruntime_ms_median": null,
+      "onnxruntime_error": "No module named 'onnxruntime'"
+    },
+    "mobilenet_v3_large": {
+      "params": 4207156,
+      "weights_mb": 17.016475,
+      "gflops": 0.43062976,
+      "pytorch_ms_median": 24.728030499318265,
+      "pytorch_ms_p95": 26.819213196904453,
+      "pytorch_batch32_ms_per_image": 16.765000609439085,
+      "onnxruntime_ms_median": null,
+      "onnxruntime_error": "No module named 'onnxruntime'"
+    },
+    "shufflenet_v2_x1_0": {
+      "params": 1257704,
+      "weights_mb": 5.194955,
+      "gflops": 0.287776176,
+      "pytorch_ms_median": 22.296117000223603,
+      "pytorch_ms_p95": 23.565239700292295,
+      "pytorch_batch32_ms_per_image": 7.568476968742743,
+      "onnxruntime_ms_median": null,
+      "onnxruntime_error": "No module named 'onnxruntime'"
+    }
+  }
+}
