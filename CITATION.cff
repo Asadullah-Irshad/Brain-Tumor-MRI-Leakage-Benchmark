@@ -1,0 +1,32 @@
+cff-version: 1.2.0
+message: "If you use this software, the duplicate lists or the grouped splits, please cite it as below."
+title: "Brain Tumor MRI Leakage Benchmark"
+abstract: >-
+  Code, duplicate and patient-group lists, grouped cross-validation splits and
+  per-run results for a leakage- and source-aware benchmark of compact
+  transfer-learning CNNs (EfficientNet-B0, ResNet-18, MobileNetV3-Large,
+  ShuffleNetV2) for four-class brain-tumour MRI classification on version 2 of
+  the Kaggle Brain Tumor MRI Dataset.
+type: software
+authors:
+  - family-names: "Irshad"
+    given-names: "Asadullah"
+    email: "asadullahirshad3@gmail.com"
+    affiliation: "Centre of Excellence for Data Science, Artificial Intelligence and Modelling (DAIM), University of Hull"
+    orcid: "https://orcid.org/0009-0005-5068-6404"
+repository-code: "https://github.com/Asadullah-Irshad/Brain-Tumor-MRI-Leakage-Benchmark"
+url: "https://github.com/Asadullah-Irshad/Brain-Tumor-MRI-Leakage-Benchmark"
+version: "1.0.0"
+date-released: "2026-10-29"
+license: MIT
+keywords:
+  - deep learning
+  - medical imaging
+  - brain tumour
+  - magnetic resonance imaging
+  - data leakage
+  - near-duplicate detection
+  - shortcut learning
+  - transfer learning
+  - EfficientNet
+  - PyTorch
