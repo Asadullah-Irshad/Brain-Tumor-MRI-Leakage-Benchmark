@@ -1,0 +1,34 @@
+{
+  "thresholds": {
+    "phash_hamming": 8,
+    "ncc": 0.98
+  },
+  "exact_duplicate_pairs": 322,
+  "near_duplicate_pairs": 17625,
+  "multi_image_groups": 2056,
+  "images_in_multi_image_groups": 5443,
+  "pct_images_in_multi_image_groups": 75.59722222222223,
+  "train_images_with_within_train_twin": 3573,
+  "pct_train_with_within_train_twin": 63.80357142857142,
+  "test_images_with_train_twin": 1083,
+  "pct_test_with_train_twin": 67.6875,
+  "test_with_train_twin_per_class": {
+    "glioma": 119,
+    "meningioma": 271,
+    "notumor": 398,
+    "pituitary": 295
+  },
+  "label_conflict_groups": 8,
+  "label_conflict_images": 29,
+  "n_train_groups": 3364,
+  "n_test_clean": 517,
+  "test_clean_per_class": {
+    "glioma": 281,
+    "meningioma": 129,
+    "notumor": 2,
+    "pituitary": 105
+  },
+  "patient_recovery": {
+    "attempted": false
+  }
+}
