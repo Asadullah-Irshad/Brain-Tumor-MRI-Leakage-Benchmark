@@ -1,0 +1,942 @@
+{
+ "cv": {
+  "EfficientNet-B0, two-stage": {
+   "runs": 15,
+   "accuracy": [
+    0.9339541691537138,
+    0.018739698607203238
+   ],
+   "accuracy_ci": [
+    0.9113364981507885,
+    0.956571840156639
+   ],
+   "balanced_accuracy": [
+    0.9344760697184297,
+    0.01769146116836881
+   ],
+   "balanced_accuracy_ci": [
+    0.9131235572445425,
+    0.9558285821923168
+   ],
+   "macro_f1": [
+    0.9330750137994247,
+    0.01793561793331992
+   ],
+   "macro_f1_ci": [
+    0.9114278190310913,
+    0.9547222085677581
+   ],
+   "macro_auc": [
+    0.9902773989756054,
+    0.008251395169887066
+   ],
+   "macro_auc_ci": [
+    0.9803184692628354,
+    1.0002363286883755
+   ],
+   "ece": [
+    0.03794999665689771,
+    0.013519241915004612
+   ],
+   "ece_ci": [
+    0.0216330978501583,
+    0.054266895463637124
+   ],
+   "brier": [
+    0.10593611829457607,
+    0.03126739681184041
+   ],
+   "brier_ci": [
+    0.06819828114834342,
+    0.14367395544080871
+   ],
+   "max_group_overlap_with_test": 0
+  },
+  "EfficientNet-B0, single-stage": {
+   "runs": 5,
+   "accuracy": [
+    0.9431201907712922,
+    0.021557851151441005
+   ],
+   "accuracy_ci": [
+    0.9029687792912224,
+    0.9832716022513619
+   ],
+   "balanced_accuracy": [
+    0.9430956489140389,
+    0.02216327430945537
+   ],
+   "balanced_accuracy_ci": [
+    0.9018166392254912,
+    0.9843746586025865
+   ],
+   "macro_f1": [
+    0.9428419103844004,
+    0.020842660819431365
+   ],
+   "macro_f1_ci": [
+    0.9040225380350102,
+    0.9816612827337905
+   ],
+   "macro_auc": [
+    0.9913968641968015,
+    0.007393941846777304
+   ],
+   "macro_auc_ci": [
+    0.9776256771028681,
+    1.005168051290735
+   ],
+   "ece": [
+    0.03438312840861034,
+    0.016399588733525875
+   ],
+   "ece_ci": [
+    0.003838960034959621,
+    0.06492729678226106
+   ],
+   "brier": [
+    0.09354895208824758,
+    0.03386439108239665
+   ],
+   "brier_ci": [
+    0.03047665924609079,
+    0.15662124493040436
+   ],
+   "max_group_overlap_with_test": 0
+  },
+  "EfficientNet-B0, frozen backbone": {
+   "runs": 5,
+   "accuracy": [
+    0.8863124199817802,
+    0.022080673853453407
+   ],
+   "accuracy_ci": [
+    0.8451872533119118,
+    0.9274375866516487
+   ],
+   "balanced_accuracy": [
+    0.8876164705552319,
+    0.021183157228557806
+   ],
+   "balanced_accuracy_ci": [
+    0.8481629250067467,
+    0.927070016103717
+   ],
+   "macro_f1": [
+    0.8858533962118926,
+    0.020567706371009988
+   ],
+   "macro_f1_ci": [
+    0.8475461254221287,
+    0.9241606670016566
+   ],
+   "macro_auc": [
+    0.9761559175784349,
+    0.01095349775774989
+   ],
+   "macro_auc_ci": [
+    0.9557550718481294,
+    0.9965567633087404
+   ],
+   "ece": [
+    0.03313228324837266,
+    0.0071315706428866235
+   ],
+   "ece_ci": [
+    0.019849761471493872,
+    0.04641480502525145
+   ],
+   "brier": [
+    0.17501158902875535,
+    0.03208056495954163
+   ],
+   "brier_ci": [
+    0.11526166520030529,
+    0.23476151285720542
+   ],
+   "max_group_overlap_with_test": 0
+  },
+  "MobileNetV3-Large, two-stage": {
+   "runs": 5,
+   "accuracy": [
+    0.9284299902716985,
+    0.026125501641015552
+   ],
+   "accuracy_ci": [
+    0.879771348037705,
+    0.977088632505692
+   ],
+   "balanced_accuracy": [
+    0.9293960270200301,
+    0.027371609103554156
+   ],
+   "balanced_accuracy_ci": [
+    0.8784165146248457,
+    0.9803755394152145
+   ],
+   "macro_f1": [
+    0.927857151910182,
+    0.026910967056604698
+   ],
+   "macro_f1_ci": [
+    0.8777355834836317,
+    0.9779787203367324
+   ],
+   "macro_auc": [
+    0.9900122391619133,
+    0.007232585137135197
+   ],
+   "macro_auc_ci": [
+    0.9765415782938267,
+    1.0034829000299998
+   ],
+   "ece": [
+    0.04549491850679059,
+    0.021744289275344966
+   ],
+   "ece_ci": [
+    0.0049962667672045005,
+    0.08599357024637669
+   ],
+   "brier": [
+    0.12047635770721703,
+    0.045965735278559364
+   ],
+   "brier_ci": [
+    0.03486535973768928,
+    0.20608735567674477
+   ],
+   "max_group_overlap_with_test": 0
+  },
+  "ShuffleNetV2 1.0x, two-stage": {
+   "runs": 5,
+   "accuracy": [
+    0.9253356852239518,
+    0.022221377507797086
+   ],
+   "accuracy_ci": [
+    0.8839484585610621,
+    0.9667229118868416
+   ],
+   "balanced_accuracy": [
+    0.9262128598215309,
+    0.022585650548673248
+   ],
+   "balanced_accuracy_ci": [
+    0.8841471760780829,
+    0.9682785435649789
+   ],
+   "macro_f1": [
+    0.924442193832166,
+    0.021475424889961604
+   ],
+   "macro_f1_ci": [
+    0.8844443009341745,
+    0.9644400867301575
+   ],
+   "macro_auc": [
+    0.9880302627246641,
+    0.011188675272761324
+   ],
+   "macro_auc_ci": [
+    0.9671913998139935,
+    1.0088691256353348
+   ],
+   "ece": [
+    0.028342706240219163,
+    0.013199087185315005
+   ],
+   "ece_ci": [
+    0.0037594591894817148,
+    0.05292595329095661
+   ],
+   "brier": [
+    0.11417277640112547,
+    0.03308015656042792
+   ],
+   "brier_ci": [
+    0.05256111721708437,
+    0.17578443558516657
+   ],
+   "max_group_overlap_with_test": 0
+  },
+  "ResNet-18, two-stage": {
+   "runs": 5,
+   "accuracy": [
+    0.9143221475691334,
+    0.019619260329234833
+   ],
+   "accuracy_ci": [
+    0.8777813537358361,
+    0.9508629414024308
+   ],
+   "balanced_accuracy": [
+    0.9138473731883,
+    0.021121847027593982
+   ],
+   "balanced_accuracy_ci": [
+    0.874508017643704,
+    0.953186728732896
+   ],
+   "macro_f1": [
+    0.9130964159840561,
+    0.01833724427617307
+   ],
+   "macro_f1_ci": [
+    0.8789433719180679,
+    0.9472494600500443
+   ],
+   "macro_auc": [
+    0.987034120618096,
+    0.01089586759956415
+   ],
+   "macro_auc_ci": [
+    0.9667406108267356,
+    1.0073276304094565
+   ],
+   "ece": [
+    0.05028001889288275,
+    0.01996058758771123
+   ],
+   "ece_ci": [
+    0.013103504406901827,
+    0.08745653337886367
+   ],
+   "brier": [
+    0.13597376907954273,
+    0.03764087700306878
+   ],
+   "brier_ci": [
+    0.06586778632625298,
+    0.20607975183283248
+   ],
+   "max_group_overlap_with_test": 0
+  },
+  "EfficientNet-B0, two-stage (image-level split)": {
+   "runs": 5,
+   "accuracy": [
+    0.9766071428571429,
+    0.006840707610492102
+   ],
+   "accuracy_ci": [
+    0.9638663523138631,
+    0.9893479334004227
+   ],
+   "balanced_accuracy": [
+    0.9766071428571429,
+    0.006840707610492131
+   ],
+   "balanced_accuracy_ci": [
+    0.9638663523138631,
+    0.9893479334004227
+   ],
+   "macro_f1": [
+    0.9766280989808062,
+    0.006836616992344195
+   ],
+   "macro_f1_ci": [
+    0.9638949271974533,
+    0.989361270764159
+   ],
+   "macro_auc": [
+    0.9987035501700682,
+    0.0008633895213299429
+   ],
+   "macro_auc_ci": [
+    0.9970954906424755,
+    1.0003116096976608
+   ],
+   "ece": [
+    0.010717843169612537,
+    0.0030942545961320602
+   ],
+   "ece_ci": [
+    0.004954806369671975,
+    0.016480879969553098
+   ],
+   "brier": [
+    0.035665068233384986,
+    0.010926885719397981
+   ],
+   "brier_ci": [
+    0.015313787317990019,
+    0.056016349148779954
+   ],
+   "max_group_overlap_with_test": 265
+  }
+ },
+ "cv_reference_seed0_accuracy": [
+  92.91131574223849,
+  2.332879599266266
+ ],
+ "paired": {
+  "EfficientNet-B0, single-stage": {
+   "paired_diff_mean": 1.4007033348907538,
+   "paired_diff_sd": 0.8404758327860524,
+   "ci_low": -0.16467953950539838,
+   "ci_high": 2.966086209286906,
+   "p_corrected": 0.06789313210599178,
+   "folds_higher": 5.0
+  },
+  "EfficientNet-B0, frozen backbone": {
+   "paired_diff_mean": -4.280073744060455,
+   "paired_diff_sd": 0.966250869042597,
+   "ci_low": -6.079712120045394,
+   "ci_high": -2.480435368075516,
+   "p_corrected": 0.002725733951549218,
+   "folds_higher": 0.0
+  },
+  "MobileNetV3-Large, two-stage": {
+   "paired_diff_mean": -0.06831671506861037,
+   "paired_diff_sd": 1.7083150792344242,
+   "ci_low": -3.2500467122796035,
+   "ci_high": 3.1134132821423828,
+   "p_corrected": 0.9553221116484282,
+   "folds_higher": 3.0
+  },
+  "ShuffleNetV2 1.0x, two-stage": {
+   "paired_diff_mean": -0.37774721984328075,
+   "paired_diff_sd": 1.3643816450680517,
+   "ci_low": -2.91890257257982,
+   "ci_high": 2.1634081328932586,
+   "p_corrected": 0.7009725925479251,
+   "folds_higher": 2.0
+  },
+  "ResNet-18, two-stage": {
+   "paired_diff_mean": -1.4791009853251236,
+   "paired_diff_sd": 0.7202020262658481,
+   "ci_low": -2.8204743764966818,
+   "ci_high": -0.1377275941535656,
+   "p_corrected": 0.03760263289834217,
+   "folds_higher": 0.0
+  }
+ },
+ "test_subsets": [
+  {
+   "subset": "All",
+   "images": 1600,
+   "accuracy_mean": 95.08333333333333,
+   "accuracy_sd": 0.729761662005708,
+   "ece_mean": 0.03010227836458339,
+   "ece_sd": 0.0025753311159688527,
+   "brier_mean": 0.08326237821724386,
+   "brier_sd": 0.00816790296569815,
+   "accuracy_seed0": 95.875,
+   "correct_per_model": "1534/1519/1511"
+  },
+  {
+   "subset": "With a training twin (NCC >= 0.95 or same patient)",
+   "images": 1416,
+   "accuracy_mean": 98.6111111111111,
+   "accuracy_sd": 0.48071040152218086,
+   "ece_mean": 0.009457057262241055,
+   "ece_sd": 0.004638455294687842,
+   "brier_mean": 0.022768892230605364,
+   "brier_sd": 0.008729859419204927,
+   "accuracy_seed0": 99.15254237288136,
+   "correct_per_model": "1404/1394/1391"
+  },
+  {
+   "subset": "Without a training twin (NCC >= 0.95 or same patient)",
+   "images": 184,
+   "accuracy_mean": 67.93478260869564,
+   "accuracy_sd": 2.717391304347828,
+   "ece_mean": 0.23605879202898553,
+   "ece_sd": 0.016173957114892664,
+   "brier_mean": 0.5487992051578967,
+   "brier_sd": 0.0038441621064537277,
+   "accuracy_seed0": 70.65217391304348,
+   "correct_per_model": "130/125/120"
+  },
+  {
+   "subset": "Without a near-duplicate (NCC >= 0.98, no patient links)",
+   "images": 517,
+   "accuracy_mean": 86.46034816247582,
+   "accuracy_sd": 1.4603161383502448,
+   "ece_mean": 0.08982981078014181,
+   "ece_sd": 0.006470013565289127,
+   "brier_mean": 0.23199797849653925,
+   "brier_sd": 0.014549401184165327,
+   "accuracy_seed0": 88.00773694390716,
+   "correct_per_model": "455/446/440"
+  },
+  {
+   "subset": "Gliomas from the figshare source",
+   "images": 324,
+   "accuracy_mean": 96.50205761316873,
+   "accuracy_sd": 1.2473616926936382,
+   "ece_mean": 0.02609730655349789,
+   "ece_sd": 0.015938560158506948,
+   "brier_mean": 0.05667783730314269,
+   "brier_sd": 0.020111955343321098,
+   "accuracy_seed0": 97.8395061728395,
+   "correct_per_model": "317/312/309"
+  },
+  {
+   "subset": "Gliomas from other sources",
+   "images": 76,
+   "accuracy_mean": 21.929824561403507,
+   "accuracy_sd": 4.019803241189334,
+   "ece_mean": 0.613505935745614,
+   "ece_sd": 0.03111415738890134,
+   "brier_mean": 1.34302586625862,
+   "brier_sd": 0.024241929060642924,
+   "accuracy_seed0": 26.31578947368421,
+   "correct_per_model": "20/16/14"
+  }
+ ],
+ "no_twin_calibration_by_model": [
+  {
+   "model": "EfficientNet-B0, two-stage",
+   "final_models": 3,
+   "images": 184,
+   "acc_mean": 67.93478260869564,
+   "acc_sd": 2.717391304347828,
+   "ece_mean": 0.23605314182971013,
+   "ece_sd": 0.0161773660777466,
+   "brier_mean": 0.5488107430799415,
+   "brier_sd": 0.003857043353214242
+  },
+  {
+   "model": "EfficientNet-B0, single-stage",
+   "final_models": 1,
+   "images": 184,
+   "acc_mean": 67.93478260869566,
+   "acc_sd": NaN,
+   "ece_mean": 0.24350056358695654,
+   "ece_sd": NaN,
+   "brier_mean": 0.5623371982750601,
+   "brier_sd": NaN
+  },
+  {
+   "model": "EfficientNet-B0, frozen backbone",
+   "final_models": 1,
+   "images": 184,
+   "acc_mean": 58.69565217391305,
+   "acc_sd": NaN,
+   "ece_mean": 0.2067839194021739,
+   "ece_sd": NaN,
+   "brier_mean": 0.6146316035055372,
+   "brier_sd": NaN
+  },
+  {
+   "model": "MobileNetV3-Large, two-stage",
+   "final_models": 1,
+   "images": 184,
+   "acc_mean": 64.13043478260869,
+   "acc_sd": NaN,
+   "ece_mean": 0.29542699625,
+   "ece_sd": NaN,
+   "brier_mean": 0.6149751032354144,
+   "brier_sd": NaN
+  },
+  {
+   "model": "ShuffleNetV2 1.0x, two-stage",
+   "final_models": 1,
+   "images": 184,
+   "acc_mean": 59.78260869565217,
+   "acc_sd": NaN,
+   "ece_mean": 0.2851111932608694,
+   "ece_sd": NaN,
+   "brier_mean": 0.6624493764346421,
+   "brier_sd": NaN
+  },
+  {
+   "model": "ResNet-18, two-stage",
+   "final_models": 1,
+   "images": 184,
+   "acc_mean": 55.434782608695656,
+   "acc_sd": NaN,
+   "ece_mean": 0.3496563351630434,
+   "ece_sd": NaN,
+   "brier_mean": 0.7667044349159545,
+   "brier_sd": NaN
+  }
+ ],
+ "table9": [
+  {
+   "class": "glioma",
+   "source": "figshare",
+   "with_twin_n": 324,
+   "with_twin_accuracy_mean": 96.50205761316873,
+   "with_twin_accuracy_sd": 1.2473616926936382,
+   "without_twin_n": 0,
+   "without_twin_accuracy_mean": NaN,
+   "without_twin_accuracy_sd": NaN
+  },
+  {
+   "class": "glioma",
+   "source": "other",
+   "with_twin_n": 2,
+   "with_twin_accuracy_mean": 0.0,
+   "with_twin_accuracy_sd": 0.0,
+   "without_twin_n": 74,
+   "without_twin_accuracy_mean": 22.52252252252252,
+   "without_twin_accuracy_sd": 4.1284465720322885
+  },
+  {
+   "class": "meningioma",
+   "source": "figshare",
+   "with_twin_n": 186,
+   "with_twin_accuracy_mean": 97.84946236559138,
+   "with_twin_accuracy_sd": 1.0752688172042966,
+   "without_twin_n": 0,
+   "without_twin_accuracy_mean": NaN,
+   "without_twin_accuracy_sd": NaN
+  },
+  {
+   "class": "meningioma",
+   "source": "other",
+   "with_twin_n": 106,
+   "with_twin_accuracy_mean": 97.79874213836479,
+   "with_twin_accuracy_sd": 1.4410615392942878,
+   "without_twin_n": 108,
+   "without_twin_accuracy_mean": 98.4567901234568,
+   "without_twin_accuracy_sd": 1.9274685180242006
+  },
+  {
+   "class": "notumor",
+   "source": "other",
+   "with_twin_n": 400,
+   "with_twin_accuracy_mean": 100.0,
+   "with_twin_accuracy_sd": 0.0,
+   "without_twin_n": 0,
+   "without_twin_accuracy_mean": NaN,
+   "without_twin_accuracy_sd": NaN
+  },
+  {
+   "class": "pituitary",
+   "source": "figshare",
+   "with_twin_n": 398,
+   "with_twin_accuracy_mean": 100.0,
+   "with_twin_accuracy_sd": 0.0,
+   "without_twin_n": 2,
+   "without_twin_accuracy_mean": 100.0,
+   "without_twin_accuracy_sd": 0.0
+  },
+  {
+   "class": "all",
+   "source": "figshare",
+   "with_twin_n": 908,
+   "with_twin_accuracy_mean": 98.31130690161528,
+   "with_twin_accuracy_sd": 0.6065606329610231,
+   "without_twin_n": 2,
+   "without_twin_accuracy_mean": 100.0,
+   "without_twin_accuracy_sd": 0.0
+  },
+  {
+   "class": "all",
+   "source": "other",
+   "with_twin_n": 508,
+   "with_twin_accuracy_mean": 99.1469816272966,
+   "with_twin_accuracy_sd": 0.3006939432385767,
+   "without_twin_n": 182,
+   "without_twin_accuracy_mean": 67.58241758241759,
+   "without_twin_accuracy_sd": 2.7472527472527517
+  }
+ ],
+ "no_twin_composition": {
+  "n": 184,
+  "other_source": 182,
+  "by_class": {
+   "meningioma": 108,
+   "glioma": 74,
+   "pituitary": 2
+  },
+  "figshare_test_with_twin": 908,
+  "figshare_test": 910
+ },
+ "other_source_gliomas": [
+  {
+   "seed": 0,
+   "n": 76,
+   "predicted_glioma": 20,
+   "predicted_meningioma": 34,
+   "predicted_notumor": 21,
+   "predicted_pituitary": 1,
+   "median_confidence_no_tumour_errors": 0.9869739
+  },
+  {
+   "seed": 1,
+   "n": 76,
+   "predicted_glioma": 16,
+   "predicted_meningioma": 35,
+   "predicted_notumor": 24,
+   "predicted_pituitary": 1,
+   "median_confidence_no_tumour_errors": 0.9506956
+  },
+  {
+   "seed": 2,
+   "n": 76,
+   "predicted_glioma": 14,
+   "predicted_meningioma": 35,
+   "predicted_notumor": 27,
+   "predicted_pituitary": 0,
+   "median_confidence_no_tumour_errors": 0.9042458
+  }
+ ],
+ "seed0_official": {
+  "accuracy": 0.95875,
+  "balanced_accuracy": 0.95875,
+  "macro_f1": 0.9578646659524477,
+  "macro_auc": 0.9928690104166668,
+  "ece": 0.03190972486875012,
+  "brier": 0.07428600308010305
+ },
+ "seed0_official_bootstrap_ci": {
+  "accuracy": [
+   0.94875,
+   0.968125
+  ],
+  "balanced_accuracy": [
+   0.94875,
+   0.968125
+  ],
+  "macro_f1": [
+   0.9474508923142395,
+   0.96762371597943
+  ],
+  "macro_auc": [
+   0.9896960416666668,
+   0.9956422526041666
+  ]
+ },
+ "seed0_no_twin": {
+  "accuracy": 0.7065217391304348,
+  "bootstrap_ci": [
+   0.6684782608695652,
+   0.75
+  ]
+ },
+ "source_checks": {
+  "matched_gliomas": 1724,
+  "matched_gliomas_512": 1724,
+  "other_source_test_gliomas": 76,
+  "other_source_test_gliomas_512": 0,
+  "other_source_test_glioma_distinct_sizes": 61,
+  "other_source_test_glioma_modes": {
+   "RGB": 76
+  },
+  "other_source_tumour_images": 565,
+  "other_source_tumour_images_512": {
+   "meningioma": 183,
+   "pituitary": 4
+  }
+ },
+ "patient_coverage": {
+  "images_with_id": 4835,
+  "images": 7200,
+  "train_with_id": 3925,
+  "train": 5600,
+  "train_without_id_by_class": {
+   "notumor": 1400,
+   "meningioma": 219,
+   "pituitary": 56
+  },
+  "train_without_id_in_multi_image_group": 1387,
+  "train_gliomas_with_id": 1400
+ },
+ "predictive_values": {
+  "sensitivity": [
+   99.30263298283262,
+   0.51978867596966
+  ],
+  "specificity": [
+   97.46782427983966,
+   1.586723619930663
+  ],
+  "rows": [
+   {
+    "prevalence": 0.75,
+    "ppv": 99.15717777565027,
+    "npv": 97.89865144581069
+   },
+   {
+    "prevalence": 0.5,
+    "ppv": 97.51344775680234,
+    "npv": 99.28959847380379
+   },
+   {
+    "prevalence": 0.2,
+    "ppv": 90.74423902374923,
+    "npv": 99.82144829291178
+   },
+   {
+    "prevalence": 0.1,
+    "ppv": 81.33412389852977,
+    "npv": 99.92056488976894
+   },
+   {
+    "prevalence": 0.05,
+    "ppv": 67.36310802880132,
+    "npv": 99.9623571047983
+   },
+   {
+    "prevalence": 0.02,
+    "ppv": 44.45472709498732,
+    "npv": 99.98540041061068
+   }
+  ]
+ },
+ "sensitivity": {
+  "ncc098_patients": {
+   "runs": 15,
+   "accuracy": [
+    0.9354707319301817,
+    0.020573020564629976
+   ],
+   "accuracy_ci": [
+    0.9106403533621744,
+    0.960301110498189
+   ],
+   "balanced_accuracy": [
+    0.9352886596611948,
+    0.022095902058845047
+   ],
+   "balanced_accuracy_ci": [
+    0.9086202561956387,
+    0.9619570631267509
+   ],
+   "macro_f1": [
+    0.9341719847312865,
+    0.02319091995980677
+   ],
+   "macro_f1_ci": [
+    0.9061819615777411,
+    0.9621620078848319
+   ],
+   "macro_auc": [
+    0.9898282045230518,
+    0.00742880029679564
+   ],
+   "macro_auc_ci": [
+    0.9808620965518824,
+    0.9987943124942211
+   ],
+   "ece": [
+    0.03906388773383796,
+    0.0163716124723495
+   ],
+   "ece_ci": [
+    0.019304351977769016,
+    0.058823423489906906
+   ],
+   "brier": [
+    0.10358145203937916,
+    0.034369126783906113
+   ],
+   "brier_ci": [
+    0.06210001636904173,
+    0.1450628877097166
+   ],
+   "max_group_overlap_with_test": 0,
+   "n_train_groups": 828
+  },
+  "ncc095_duponly": {
+   "runs": 15,
+   "accuracy": [
+    0.9675760348597702,
+    0.009005249605687238
+   ],
+   "accuracy_ci": [
+    0.9567072489123609,
+    0.9784448208071794
+   ],
+   "balanced_accuracy": [
+    0.9672117579342188,
+    0.00875416881504974
+   ],
+   "balanced_accuracy_ci": [
+    0.9566460111571199,
+    0.9777775047113176
+   ],
+   "macro_f1": [
+    0.9674241496599637,
+    0.008785744656621079
+   ],
+   "macro_f1_ci": [
+    0.9568202927717434,
+    0.978028006548184
+   ],
+   "macro_auc": [
+    0.9980250232995594,
+    0.0009897759834449162
+   ],
+   "macro_auc_ci": [
+    0.9968304241744941,
+    0.9992196224246248
+   ],
+   "ece": [
+    0.018825678662973768,
+    0.005916030512679184
+   ],
+   "ece_ci": [
+    0.011685391373208528,
+    0.025965965952739006
+   ],
+   "brier": [
+    0.0505997008943808,
+    0.013178238687380545
+   ],
+   "brier_ci": [
+    0.03469437214407614,
+    0.06650502964468546
+   ],
+   "max_group_overlap_with_test": 0,
+   "n_train_groups": 3169
+  },
+  "ncc098_duponly": {
+   "runs": 15,
+   "accuracy": [
+    0.9672032836788895,
+    0.008278983974015653
+   ],
+   "accuracy_ci": [
+    0.9572110559655367,
+    0.9771955113922424
+   ],
+   "balanced_accuracy": [
+    0.9671397737257726,
+    0.00831996441050812
+   ],
+   "balanced_accuracy_ci": [
+    0.95709808512996,
+    0.9771814623215853
+   ],
+   "macro_f1": [
+    0.9669415477711577,
+    0.008202681385807653
+   ],
+   "macro_f1_ci": [
+    0.9570414126187864,
+    0.976841682923529
+   ],
+   "macro_auc": [
+    0.9974057916976025,
+    0.0013951413746318233
+   ],
+   "macro_auc_ci": [
+    0.9957219413179671,
+    0.9990896420772378
+   ],
+   "ece": [
+    0.019684313530236263,
+    0.005670276558629688
+   ],
+   "ece_ci": [
+    0.012840636244552034,
+    0.026527990815920492
+   ],
+   "brier": [
+    0.05192312914655564,
+    0.012960746899267298
+   ],
+   "brier_ci": [
+    0.03628029969319765,
+    0.06756595859991363
+   ],
+   "max_group_overlap_with_test": 0,
+   "n_train_groups": 3364
+  }
+ }
+}
