@@ -31,7 +31,8 @@
    - [Results by duplicate status and image source](#4-results-by-duplicate-status-and-image-source)
    - [Glioma errors](#5-glioma-errors)
    - [Calibration, shortcut probes and saliency](#6-calibration-shortcut-probes-and-saliency)
-   - [Computational cost](#7-computational-cost)
+   - [Predictive values at realistic prevalence](#7-predictive-values-at-realistic-prevalence)
+   - [Computational cost](#8-computational-cost)
 7. [Comparison with published studies](#comparison-with-published-studies)
 8. [Key findings](#key-findings)
 9. [Requirements](#requirements)
@@ -65,13 +66,14 @@ It contains the complete, reproducible pipeline and every result of the study *"
 |:--|:--:|
 | Official test images with a training twin (NCC ≥ 0.98 → NCC ≥ 0.95 + patient links) | **67.7% – 88.5%** |
 | Grouped 5-fold CV accuracy, EfficientNet-B0 (15 runs) | **93.4 ± 1.9%** (95% CI 91.1–95.7) |
+| Grouped CV accuracy with near-duplicates only, no patient identifiers (15 runs) | 96.8 ± 0.9% |
 | Image-level 5-fold CV accuracy (conventional protocol) | 97.7 ± 0.7% |
 | Official test accuracy (3 final models) | 95.1 ± 0.7% |
 | — on test images **with** a training twin (n = 1,416) | **98.6 ± 0.5%** |
-| — on test images **without** a training twin (n = 184) | **67.9 ± 2.7%** |
+| — on test images **without** a training twin (n = 184; 182 are other-source images) | **67.9 ± 2.7%** |
 | Glioma recall, figshare-source gliomas (n = 324) | 96.5 ± 1.2% |
 | Glioma recall, other-source gliomas (n = 76) | **21.9 ± 4.0%** |
-| Other-source gliomas called "no tumour" | 31.6 ± 3.9% (median confidence 0.987) |
+| Other-source gliomas called "no tumour" | 31.6 ± 3.9%, i.e. 21, 24 and 27 of 76 images for the three final models (median confidence 0.90–0.99) |
 | Tumour vs no tumour from file properties only (grouped CV) | 91.1 ± 3.0% balanced accuracy |
 | CPU latency, EfficientNet-B0 (Xeon 2.0 GHz, 2 threads, batch 1) | 41.5 ms / image |
 
@@ -89,7 +91,8 @@ Brain-Tumor-MRI-Leakage-Benchmark/
 ├── data/
 │   └── README.md                  # how to download the datasets (not redistributed here)
 ├── notebooks/
-│   └── run_all.ipynb              # one-click pipeline for Kaggle / Colab
+│   ├── run_all.ipynb              # one-click pipeline for Kaggle / Colab
+│   └── grouping_sensitivity.ipynb # grouped CV under three alternative groupings (Kaggle)
 ├── scripts/
 │   ├── common.py                  # data loading, models, training, metrics (shared)
 │   ├── s00_audit.py               # dataset accounting and release detection
@@ -99,13 +102,16 @@ Brain-Tumor-MRI-Leakage-Benchmark/
 │   ├── s04_explain.py             # occlusion probes, Grad-CAM, glioma error analysis
 │   ├── s05_latency.py             # parameters, GFLOPs, measured CPU latency
 │   ├── s06_report.py              # aggregates every run into summary values and figures
-│   └── s07_source_analysis.py     # results by duplicate status and image source
+│   ├── s07_source_analysis.py     # results by duplicate status and image source
+│   └── s08_revision2_analysis.py  # calibration, paired differences, source x twin table, predictive values
 ├── results/                       # every per-run result of the study (JSON / CSV)
 │   ├── audit_summary.json, dedup_summary.json, groups.csv, duplicate_links.csv, ...
 │   ├── dedup_098/                 # sensitivity analysis at NCC >= 0.98
 │   ├── cv/grouped/, cv/naive/     # one JSON per (model, mode, seed, fold)
 │   ├── test/                      # final models: metrics and per-image predictions
-│   └── explain/                   # occlusion, metadata probe, glioma error tables
+│   ├── explain/                   # occlusion, metadata probe, glioma error tables
+│   ├── sensitivity/               # grouped CV under three alternative groupings (group lists + one JSON per run)
+│   └── revision2/                 # summary values of the additional analyses
 ├── figures/                       # all figures of the paper (fig01–fig08)
 └── tables/                        # main tables of the paper as CSV
 ```
@@ -167,10 +173,16 @@ Brain-Tumor-MRI-Leakage-Benchmark/
 
 ### 1. Cross-validation: grouped versus image-level splitting
 
-| Protocol | Runs | Accuracy (%) [95% CI] | Balanced acc. (%) | Macro-F1 [95% CI] | Macro-AUC [95% CI] | ECE |
-|:--|:--:|:--:|:--:|:--:|:--:|:--:|
-| Grouped (duplicates + patients) | 15 | **93.4 ± 1.9** [91.1–95.7] | 93.4 ± 1.8 | 0.933 ± 0.018 [0.911–0.955] | 0.990 ± 0.008 [0.980–1.000] | 0.038 |
-| Image-level (conventional) | 5 | 97.7 ± 0.7 [96.4–98.9] | 97.7 ± 0.7 | 0.977 ± 0.007 [0.964–0.989] | 0.999 ± 0.001 [0.997–1.000] | 0.011 |
+| Protocol | Runs | Accuracy (%) [95% CI] | Balanced acc. (%) | Macro-F1 [95% CI] | Macro-AUC [95% CI] | ECE | Brier score |
+|:--|:--:|:--:|:--:|:--:|:--:|:--:|:--:|
+| Grouped: NCC ≥ 0.95 + patients (main analysis) | 15 | **93.4 ± 1.9** [91.1–95.7] | 93.4 ± 1.8 | 0.933 ± 0.018 [0.911–0.955] | 0.990 ± 0.008 [0.980–1.000] | 0.038 ± 0.014 | 0.106 ± 0.031 |
+| Grouped: NCC ≥ 0.98 + patients | 15 | 93.5 ± 2.1 [91.1–96.0] | 93.5 ± 2.2 | 0.934 ± 0.023 [0.906–0.962] | 0.990 ± 0.007 [0.981–0.999] | 0.039 ± 0.016 | 0.104 ± 0.034 |
+| Grouped: NCC ≥ 0.95, no patient identifiers | 15 | 96.8 ± 0.9 [95.7–97.8] | 96.7 ± 0.9 | 0.967 ± 0.009 [0.957–0.978] | 0.998 ± 0.001 [0.997–0.999] | 0.019 ± 0.006 | 0.051 ± 0.013 |
+| Grouped: NCC ≥ 0.98, no patient identifiers | 15 | 96.7 ± 0.8 [95.7–97.7] | 96.7 ± 0.8 | 0.967 ± 0.008 [0.957–0.977] | 0.997 ± 0.001 [0.996–0.999] | 0.020 ± 0.006 | 0.052 ± 0.013 |
+| Image-level (conventional) | 5 | 97.7 ± 0.7 [96.4–98.9] | 97.7 ± 0.7 | 0.977 ± 0.007 [0.964–0.989] | 0.999 ± 0.001 [0.997–1.000] | 0.011 ± 0.003 | 0.036 ± 0.011 |
+
+**Grouping sensitivity.** The near-duplicate threshold has almost no effect once patients are grouped (93.5% at NCC ≥ 0.98 against 93.4% at NCC ≥ 0.95). Removing the patient identifiers raises accuracy to 96.8%. Of the 4.3 points between image-level splitting and the main analysis, near-duplicate grouping accounts for about 0.9 points and keeping the slices of each patient together for about 3.4 points. The runs do not share folds, so these comparisons are unpaired.
+
 
 Image-level splitting overestimates accuracy by **4.3 percentage points** (4.7 points when compared with the grouped runs that used the same seed).
 
@@ -198,13 +210,27 @@ Image-level splitting overestimates accuracy by **4.3 percentage points** (4.7 p
 | ShuffleNetV2 1.0×, two-stage | 1.26 | 0.29 | 22.3 | 92.5 ± 2.2 | 0.924 | 0.930 | 59.8 | 0.095 |
 | ResNet-18, two-stage | 11.18 | 3.63 | 37.2 | 91.4 ± 2.0 | 0.913 | 0.943 | 55.4 | 0.081 |
 
-The compact architectures perform within run-to-run variation, full fine-tuning clearly beats a frozen backbone, the two-stage warm-up adds nothing over single-stage training, and **every model fails on gliomas without a training twin**.
+The baselines and ablations were run with one seed, so each is compared with two-stage EfficientNet-B0 on the five matched folds of seed 0 (paired difference in accuracy, 95% CI from the corrected resampled *t*; exploratory, not adjusted for multiple comparisons):
+
+| Model / training | Paired difference (points) [95% CI] | CV ECE | CV Brier score |
+|:--|:--:|:--:|:--:|
+| EfficientNet-B0, two-stage | reference | 0.038 ± 0.014 | 0.106 ± 0.031 |
+| EfficientNet-B0, single-stage | +1.4 [−0.2 to 3.0] | 0.034 ± 0.016 | 0.094 ± 0.034 |
+| EfficientNet-B0, frozen backbone | **−4.3 [−6.1 to −2.5]** | 0.033 ± 0.007 | 0.175 ± 0.032 |
+| MobileNetV3-Large, two-stage | −0.1 [−3.3 to 3.1] | 0.045 ± 0.022 | 0.120 ± 0.046 |
+| ShuffleNetV2 1.0×, two-stage | −0.4 [−2.9 to 2.2] | 0.028 ± 0.013 | 0.114 ± 0.033 |
+| ResNet-18, two-stage | −1.5 [−2.8 to −0.1] | 0.050 ± 0.020 | 0.136 ± 0.038 |
+
+Only the frozen-backbone deficit is clear. The other comparisons are inconclusive with five folds and one seed: the two-stage warm-up showed no advantage over single-stage training, and no architecture was demonstrably better than EfficientNet-B0. **Every model fails on gliomas without a training twin.**
 
 ### 3. Official test partition
 
-| Test set | Images | Accuracy (%) [95% CI] | Balanced acc. (%) | Macro-F1 [95% CI] | Macro-AUC [95% CI] | ECE |
+| Official test partition (1,600 images) | Accuracy (%) | Balanced acc. (%) | Macro-F1 | Macro-AUC | ECE | Brier score |
 |:--|:--:|:--:|:--:|:--:|:--:|:--:|
-| Official test partition | 1,600 | 95.1 ± 0.7 [94.9–96.8] | 95.1 ± 0.7 | 0.950 ± 0.008 [0.947–0.968] | 0.990 ± 0.002 [0.990–0.996] | 0.030 |
+| Three final models, mean ± SD | 95.1 ± 0.7 | 95.1 ± 0.7 | 0.950 ± 0.008 | 0.990 ± 0.002 | 0.030 ± 0.003 | 0.083 ± 0.008 |
+| Seed-0 model [bootstrap 95% CI] | 95.9 [94.9–96.8] | 95.9 [94.9–96.8] | 0.958 [0.947–0.968] | 0.993 [0.990–0.996] | 0.032 | 0.074 |
+
+The bootstrap interval refers to the seed-0 estimate, not to the three-model mean.
 
 | Class (official test) | Precision | Recall | F1 |
 |:--|:--:|:--:|:--:|
@@ -218,23 +244,40 @@ The compact architectures perform within run-to-run variation, full fine-tuning 
 
 ### 4. Results by duplicate status and image source
 
-| Subset of the official test partition | Images | Accuracy (%) | Glioma recall (%) | Gliomas → "no tumour" (%) | Gliomas → "meningioma" (%) |
-|:--|:--:|:--:|:--:|:--:|:--:|
-| All | 1,600 | 95.1 ± 0.7 | 82.3 ± 1.8 | 6.0 ± 0.8 | 11.4 ± 1.1 |
-| With a training twin | 1,416 | **98.6 ± 0.5** | 95.9 ± 1.2 | 0.0 | 4.0 ± 1.2 |
-| Without a training twin | 184 | **67.9 ± 2.7** | 22.5 ± 4.1 | 32.4 ± 4.1 | 44.1 ± 0.8 |
-| Without a near-duplicate (NCC ≥ 0.98) | 517 | 86.5 ± 1.5 | 76.4 ± 2.0 | 8.5 ± 1.1 | 14.7 ± 1.1 |
-| Gliomas, figshare source | 324 | — | **96.5 ± 1.2** | 0.0 | 3.4 ± 1.2 |
-| Gliomas, other sources | 76 | — | **21.9 ± 4.0** | 31.6 ± 3.9 | 45.6 ± 0.8 |
+| Subset of the official test partition | Images | Accuracy (%) | ECE | Brier score | Glioma recall (%) | Gliomas → "no tumour" (%) | Gliomas → "meningioma" (%) |
+|:--|:--:|:--:|:--:|:--:|:--:|:--:|:--:|
+| All | 1,600 | 95.1 ± 0.7 | 0.030 ± 0.003 | 0.083 ± 0.008 | 82.3 ± 1.8 | 6.0 ± 0.8 | 11.4 ± 1.1 |
+| With a training twin | 1,416 | **98.6 ± 0.5** | 0.009 ± 0.005 | 0.023 ± 0.009 | 95.9 ± 1.2 | 0.0 | 4.0 ± 1.2 |
+| Without a training twin | 184 | **67.9 ± 2.7** | 0.236 ± 0.016 | 0.549 ± 0.004 | 22.5 ± 4.1 | 32.4 ± 4.1 | 44.1 ± 0.8 |
+| Without a near-duplicate (NCC ≥ 0.98) | 517 | 86.5 ± 1.5 | 0.090 ± 0.006 | 0.232 ± 0.015 | 76.4 ± 2.0 | 8.5 ± 1.1 | 14.7 ± 1.1 |
+| Gliomas, figshare source | 324 | — | 0.026 ± 0.016 | 0.057 ± 0.020 | **96.5 ± 1.2** | 0.0 | 3.4 ± 1.2 |
+| Gliomas, other sources | 76 | — | 0.614 ± 0.031 | 1.343 ± 0.024 | **21.9 ± 4.0** | 31.6 ± 3.9 | 45.6 ± 0.8 |
+
+**Twin status and image source are confounded.** Of the 184 test images without a training twin, 182 are other-source images (74 gliomas, 108 meningiomas), so the contrast above is not a clean measure of duplicate leakage. Separating the two factors as far as the data allow:
+
+| Class and source | With a twin: n | With a twin: accuracy (%) | Without a twin: n | Without a twin: accuracy (%) |
+|:--|:--:|:--:|:--:|:--:|
+| Glioma, figshare source | 324 | 96.5 ± 1.2 | 0 | — |
+| Glioma, other sources | 2 | 0.0 ± 0.0 | 74 | **22.5 ± 4.1** |
+| Meningioma, figshare source | 186 | 97.8 ± 1.1 | 0 | — |
+| Meningioma, other sources | 106 | 97.8 ± 1.4 | 108 | 98.5 ± 1.9 |
+| No tumour, other sources | 400 | 100.0 ± 0.0 | 0 | — |
+| Pituitary, figshare source | 398 | 100.0 ± 0.0 | 2 | 100.0 ± 0.0 |
+| All figshare-source images | 908 | 98.3 ± 0.6 | 2 | 100.0 ± 0.0 |
+| All other-source images | 508 | 99.1 ± 0.3 | 182 | 67.6 ± 2.7 |
+
+Other-source meningiomas are recognised equally well with and without a twin; the deficit lies entirely in the other-source gliomas. The 67.9% figure therefore mixes novelty with a glioma-specific source effect, and the grouped versus image-level cross-validation comparison remains the estimate of leakage inflation.
 
 <p align="center"><img src="figures/fig05_source_effect.png" width="65%"></p>
 <p align="center"><em>Figure 5. Accuracy with and without a training twin, and glioma recall by image source (mean ± SD, 3 seeds).</em></p>
 
 ### 5. Glioma errors
 
+- Of the 76 other-source gliomas, the three final models recognised 20, 16 and 14, called 21, 24 and 27 "no tumour" and called 34, 35 and 35 "meningioma".
 - Of the 63 glioma errors of the seed-0 model, **56 are other-source gliomas**, including **all 21** gliomas called "no tumour" (median confidence 0.987).
 - Excluding the 76 other-source gliomas, official test accuracy would be 98.7 ± 0.6%.
-- The missed gliomas mostly show large, clearly visible lesions on T2-weighted/FLAIR images or coronal/sagittal slices — acquisition types absent from the training gliomas; at least one appears to be a CT scan.
+- The missed gliomas mostly show large, clearly visible lesions, many on T2-weighted or FLAIR images, sequences absent from the training gliomas; at least one appears to be a CT scan.
+- Whether the network uses source-related appearance as a cue, or simply fails on image types it has never seen for this class, cannot be decided from these data. The source-shortcut explanation is a hypothesis.
 
 <p align="center"><img src="figures/fig06a_glioma_to_no_tumour.png" width="95%"></p>
 <p align="center"><em>Figure 6(a). Gliomas classified as "no tumour", with Grad-CAM maps. All are other-source images.</em></p>
@@ -246,8 +289,10 @@ The compact architectures perform within run-to-run variation, full fine-tuning 
 
 | Probe | Result |
 |:--|:--:|
-| ECE, official test partition | 0.030 ± 0.003 |
-| ECE, test images without a training twin | 0.236 ± 0.016 (overconfident) |
+| ECE / Brier score, grouped cross-validation | 0.038 ± 0.014 / 0.106 ± 0.031 |
+| ECE / Brier score, official test partition | 0.030 ± 0.003 / 0.083 ± 0.008 |
+| ECE / Brier score, test images without a training twin | 0.236 ± 0.016 / 0.549 ± 0.004 (overconfident) |
+| ECE / Brier score, other-source gliomas | 0.614 ± 0.031 / 1.343 ± 0.024 |
 | Accuracy on no-twin images: unmasked → centre 60% masked → only centre kept | 70.7% → 26.6% → 61.4% |
 | File-properties-only random forest, tumour vs no tumour (grouped CV / test) | 91.1 ± 3.0% / 95.2% balanced accuracy |
 | File-properties-only random forest, four classes (grouped CV / test) | 63.8 ± 2.3% / 61.8% balanced accuracy |
@@ -255,7 +300,22 @@ The compact architectures perform within run-to-run variation, full fine-tuning 
 <p align="center"><img src="figures/fig07_reliability.png" width="38%"> &nbsp; <img src="figures/fig08_gradcam_correct.png" width="58%"></p>
 <p align="center"><em>Figure 7 (left). Reliability on test images without a training twin. Figure 8 (right). Grad-CAM for correctly classified images.</em></p>
 
-### 7. Computational cost
+The file-property probe describes the dataset, not the network: the CNN never receives file size or the original image dimensions, because every image is resized to 224 × 224 pixels. The masking result excludes only a dependence on the image border; it is compatible both with the use of anatomy and with the use of source-specific appearance inside the brain region.
+
+### 7. Predictive values at realistic prevalence
+
+Tumour versus no tumour, from the sensitivity (99.3 ± 0.5%) and specificity (97.5 ± 1.6%) observed in grouped cross-validation (illustrative; prevalences are assumed):
+
+| Assumed prevalence of tumour | PPV (%) | NPV (%) |
+|:--|:--:|:--:|
+| 75% (class balance of this benchmark) | 99.2 | 97.9 |
+| 50% | 97.5 | 99.3 |
+| 20% | 90.7 | 99.8 |
+| 10% | 81.3 | 99.9 |
+| 5% | 67.4 | > 99.9 |
+| 2% | 44.5 | > 99.9 |
+
+### 8. Computational cost
 
 | Model | Params (M) | GFLOPs | Weights (MB) | CPU latency, batch 1 (ms) |
 |:--|:--:|:--:|:--:|:--:|
@@ -288,9 +348,10 @@ Only results obtained with grouped splitting of the same release are directly co
 
 - **Leakage is severe.** Between two-thirds and nine-tenths of the official test images have a duplicate or same-patient twin in the training partition.
 - **Image-level splitting inflates accuracy** by 4.3–4.7 points compared with grouped splitting.
-- **Official test accuracy (95.1%) is mostly recognition** of seen images: 98.6% with a twin versus 67.9% without.
-- **Class is confounded with image source.** Every training glioma comes from one source; gliomas from other sources are recognised in only 21.9% of cases, and 31.6% are confidently called "no tumour".
-- **Architecture is not the bottleneck.** Four compact CNNs behave alike; the limiting factor is the data.
+- **Most of this inflation comes from slices of the same patient,** not from near-identical copies: grouping near-duplicates alone still gives 96.8%, and the similarity threshold (0.95 or 0.98) makes no practical difference.
+- **Official test accuracy (95.1%) is dominated by images with a training twin** (98.6% on these). The 67.9% on images without a twin mixes novelty with image source and is not a clean leakage estimate.
+- **Class is confounded with image source.** Every training glioma comes from one source; of the 76 test gliomas from other sources only 21.9% are recognised, and 21–27 are confidently called "no tumour". This is consistent with reliance on source-specific cues, which remains a hypothesis.
+- **No compact architecture was demonstrably better.** With five matched folds and one seed, only the frozen-backbone model differed clearly; the limiting factor appears to be the data.
 - **Lesson for multi-source datasets:** control leakage by duplicates, patients *and* image source, and report results per source.
 
 ---
@@ -339,6 +400,7 @@ python scripts/s04_explain.py $G --model efficientnet_b0 --mode two_stage --seed
 python scripts/s05_latency.py --out $OUT --weights $OUT/test/efficientnet_b0__two_stage__s0.pt
 python scripts/s06_report.py --out $OUT --data_root $DATA
 python scripts/s07_source_analysis.py --out $OUT
+python scripts/s08_revision2_analysis.py --results $OUT --tables tables
 ```
 
 Every training step is resumable: a finished (model, mode, seed, fold) is skipped when the command is re-run. Add `--smoke` to any training script for a fast end-to-end check on CPU.
@@ -349,6 +411,14 @@ To regenerate the source analysis, Table 8 and Figures 4, 5 and 7 from the publi
 python scripts/s07_source_analysis.py --out results
 ```
 
+To regenerate the calibration values, the paired differences, the source-by-twin table, the predictive values and the grouping-sensitivity summary, also without retraining:
+
+```bash
+python scripts/s08_revision2_analysis.py --results results --tables tables
+```
+
+The grouping-sensitivity runs themselves (45 training runs, about 5 GPU hours on two T4 GPUs) are reproduced with [`notebooks/grouping_sensitivity.ipynb`](notebooks/grouping_sensitivity.ipynb). The notebook writes its results to `results_sensitivity/`, which is stored here as `results/sensitivity/`.
+
 ---
 
 ## Reproducing every table and figure
@@ -356,16 +426,18 @@ python scripts/s07_source_analysis.py --out results
 | Paper item | Repository file | Produced by |
 |:--|:--|:--|
 | Table 2 — image accounting and sources | `tables/table2_image_accounting_and_sources.csv` | `s00_audit.py`, `s01_dedup.py`, `s07_source_analysis.py` |
-| Table 3 — cross-validation | `tables/table3_cross_validation.csv` | `s02_cv.py` → `s06_report.py` |
+| Table 3 — cross-validation | `tables/table3_cross_validation.csv`, `tables/table3_cross_validation_grouping_sensitivity.csv` | `s02_cv.py` → `s06_report.py`; `notebooks/grouping_sensitivity.ipynb` → `s08_revision2_analysis.py` |
 | Table 4 — per-class CV | `results/manuscript_values.json` (`CV_*`) | `s06_report.py` |
-| Table 5 — baselines and ablations | `tables/table5_baselines_and_ablations.csv` | `s02_cv.py`, `s03_test.py`, `s05_latency.py` |
+| Table 5 — baselines and ablations | `tables/table5_baselines_and_ablations.csv`, `tables/table5a_calibration_and_paired_differences.csv`, `tables/table5b_no_twin_calibration.csv` | `s02_cv.py`, `s03_test.py`, `s05_latency.py`, `s08_revision2_analysis.py` |
 | Tables 6–7 — official test | `tables/table6_official_test.csv`, `results/manuscript_values.json` (`T_*`) | `s03_test.py` → `s06_report.py` |
-| Table 8 — subsets by twin and source | `tables/table8_test_subsets_by_twin_and_source.csv` | `s07_source_analysis.py` |
+| Table 8 — subsets by twin and source | `tables/table8_test_subsets_by_twin_and_source.csv`, `tables/table8_calibration_by_test_subset.csv` | `s07_source_analysis.py`, `s08_revision2_analysis.py` |
+| Table 9 — accuracy by class, source and twin status | `tables/table9_accuracy_by_class_source_twin.csv` | `s08_revision2_analysis.py` |
+| Table 10 — predictive values | `tables/table10_predictive_values.csv` | `s08_revision2_analysis.py` |
 | Figure 1 | `figures/fig01_near_duplicate_pairs.png` | `s06_report.py` |
 | Figures 2–3 | `figures/fig02_cv_runs.png`, `figures/fig03_cv_confusion.png` | `s06_report.py` |
 | Figures 4, 5, 7 | `figures/fig04_test_confusion.png`, `fig05_source_effect.png`, `fig07_reliability.png` | `s07_source_analysis.py` |
 | Figures 6a, 6b, 8 | `figures/fig06a_glioma_to_no_tumour.png`, `fig06b_glioma_to_meningioma.png`, `fig08_gradcam_correct.png` | `s04_explain.py` |
-| All summary numbers | `results/manuscript_values.json`, `results/source_analysis.json` | `s06_report.py`, `s07_source_analysis.py` |
+| All summary numbers | `results/manuscript_values.json`, `results/source_analysis.json`, `results/revision2/revision2_values.json` | `s06_report.py`, `s07_source_analysis.py`, `s08_revision2_analysis.py` |
 
 In `results/`, files named `*__clean_*` refer to test images without a training twin.
 
@@ -374,8 +446,12 @@ In `results/`, files named `*__clean_*` refer to test images without a training 
 ## Limitations
 
 - No independently collected external cohort; the other-source gliomas act as an out-of-source test for one class only.
-- Patient identifiers are recoverable only for figshare-source slices, so residual patient overlap cannot be excluded for other images.
-- At NCC ≥ 0.95 some similar but distinct slices are linked; contamination is therefore reported at both 0.95 and 0.98.
+- Patient identifiers are recoverable only for figshare-source slices (67.2% of the collection, 70.1% of the training partition, including every training glioma), so residual patient overlap cannot be excluded for the other images.
+- "Other source" is defined by exclusion: up to 187 other-source meningioma and pituitary images are 512 × 512 pixels and could be figshare slices that the matching missed (no glioma is in this category).
+- Twin status and image source are confounded in the test partition, and the source-shortcut explanation of the glioma failures is a hypothesis.
+- The baselines and ablations were run with one seed; comparisons between architectures are underpowered.
+- At NCC ≥ 0.95 some similar but distinct slices are linked; contamination is therefore reported at both 0.95 and 0.98. Repeating grouped cross-validation at 0.98 changed the estimate by only 0.1 points.
+- For the 30% of training images without patient identifiers, grouping relies on near-duplicate links alone, which remove only about a fifth of the optimism; the grouped accuracy of 93.4% is best read as an upper estimate under complete patient independence.
 - Two-dimensional slices only (no volumetric context), downsampled to 224 × 224.
 - Balanced classes do not reflect clinical prevalence; labels come from the dataset curators.
 - One fixed training recipe; no hyperparameter tuning, test-time augmentation, larger models or reader study.
