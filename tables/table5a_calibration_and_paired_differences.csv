@@ -1,0 +1,8 @@
+model,runs,accuracy_mean,accuracy_sd,ece_mean,ece_sd,brier_mean,brier_sd,paired_diff_mean,paired_diff_sd,ci_low,ci_high,p_corrected,folds_higher
+"EfficientNet-B0, two-stage",15,93.3954,1.874,0.0379,0.0135,0.1059,0.0313,,,,,,
+"EfficientNet-B0, single-stage",5,94.312,2.1558,0.0344,0.0164,0.0935,0.0339,1.4007,0.8405,-0.1647,2.9661,0.0679,5.0
+"EfficientNet-B0, frozen backbone",5,88.6312,2.2081,0.0331,0.0071,0.175,0.0321,-4.2801,0.9663,-6.0797,-2.4804,0.0027,0.0
+"MobileNetV3-Large, two-stage",5,92.843,2.6126,0.0455,0.0217,0.1205,0.046,-0.0683,1.7083,-3.25,3.1134,0.9553,3.0
+"ShuffleNetV2 1.0x, two-stage",5,92.5336,2.2221,0.0283,0.0132,0.1142,0.0331,-0.3777,1.3644,-2.9189,2.1634,0.701,2.0
+"ResNet-18, two-stage",5,91.4322,1.9619,0.0503,0.02,0.136,0.0376,-1.4791,0.7202,-2.8205,-0.1377,0.0376,0.0
+"EfficientNet-B0, two-stage (image-level split)",5,97.6607,0.6841,0.0107,0.0031,0.0357,0.0109,,,,,,

@@ -1,0 +1,7 @@
+subset,images,accuracy_mean,accuracy_sd,ece_mean,ece_sd,brier_mean,brier_sd,accuracy_seed0,correct_per_model
+All,1600,95.0833,0.7298,0.0301,0.0026,0.0833,0.0082,95.875,1534/1519/1511
+With a training twin (NCC >= 0.95 or same patient),1416,98.6111,0.4807,0.0095,0.0046,0.0228,0.0087,99.1525,1404/1394/1391
+Without a training twin (NCC >= 0.95 or same patient),184,67.9348,2.7174,0.2361,0.0162,0.5488,0.0038,70.6522,130/125/120
+"Without a near-duplicate (NCC >= 0.98, no patient links)",517,86.4603,1.4603,0.0898,0.0065,0.232,0.0145,88.0077,455/446/440
+Gliomas from the figshare source,324,96.5021,1.2474,0.0261,0.0159,0.0567,0.0201,97.8395,317/312/309
+Gliomas from other sources,76,21.9298,4.0198,0.6135,0.0311,1.343,0.0242,26.3158,20/16/14

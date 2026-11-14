@@ -1,0 +1,9 @@
+class,source,with_twin_n,with_twin_accuracy_mean,with_twin_accuracy_sd,without_twin_n,without_twin_accuracy_mean,without_twin_accuracy_sd
+glioma,figshare,324,96.5,1.25,0,,
+glioma,other,2,0.0,0.0,74,22.52,4.13
+meningioma,figshare,186,97.85,1.08,0,,
+meningioma,other,106,97.8,1.44,108,98.46,1.93
+notumor,other,400,100.0,0.0,0,,
+pituitary,figshare,398,100.0,0.0,2,100.0,0.0
+all,figshare,908,98.31,0.61,2,100.0,0.0
+all,other,508,99.15,0.3,182,67.58,2.75

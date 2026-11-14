@@ -1,0 +1,7 @@
+model,final_models,images,acc_mean,acc_sd,ece_mean,ece_sd,brier_mean,brier_sd
+"EfficientNet-B0, two-stage",3,184,67.9348,2.7174,0.2361,0.0162,0.5488,0.0039
+"EfficientNet-B0, single-stage",1,184,67.9348,,0.2435,,0.5623,
+"EfficientNet-B0, frozen backbone",1,184,58.6957,,0.2068,,0.6146,
+"MobileNetV3-Large, two-stage",1,184,64.1304,,0.2954,,0.615,
+"ShuffleNetV2 1.0x, two-stage",1,184,59.7826,,0.2851,,0.6624,
+"ResNet-18, two-stage",1,184,55.4348,,0.3497,,0.7667,
